@@ -1,0 +1,17 @@
+.content {
+    padding: 0px 16px 0px
+}
+
+.mantine-Popover-dropdown {
+    z-index: 10000;
+}
+
+.form {
+    flex: 1;
+    max-width: 50%
+}
+
+.container {
+    display: flex;
+    gap: 20px
+}

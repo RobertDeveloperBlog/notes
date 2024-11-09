@@ -1,0 +1,13 @@
+.modalFooter {
+    padding-right: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 70px;
+    background-color: #EEEEEE;
+
+}
+
+.mantine-Modal-body {
+    padding: 0;
+}

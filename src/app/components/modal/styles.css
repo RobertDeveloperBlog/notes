@@ -1,0 +1,10 @@
+.mantine-Modal-header {
+    height: 70px;
+    background-color: #EEEEEE;
+}
+
+.mantine-Modal-title {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+}
