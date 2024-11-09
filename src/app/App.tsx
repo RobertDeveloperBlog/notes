@@ -9,7 +9,6 @@ export const App = () => {
           <div className="body">
           <Card/>
           </div>
-          {/*<Button mt='xs'>Hola</Button>*/}
       </Paper>
   );
 }

@@ -1,29 +1,31 @@
 import {MantineReactTable, useMantineReactTable,} from 'mantine-react-table'
-import {useEffect, useMemo, useRef, useState} from 'react';
+import {Dispatch, FC, SetStateAction, useMemo, useRef} from 'react';
 import {headers} from "./tableConfig";
 import './styles.css'
-import {IForm} from "../modal/components/ModalContent/ModalContent";
+import {INoteResponseDTO} from "../modal/editNoteModal/EditNoteModal";
+import {IconEdit} from '@tabler/icons-react';
+import {ActionIcon} from '@mantine/core';
 
 
-export const Table = () => {
-    const [notes, setNotes] = useState<IForm[]>([])
+interface IProps {
+    notes: INoteResponseDTO[]
+    setIsOpenEditModal: Dispatch<SetStateAction<boolean>>
+    setCurrentNote: Dispatch<SetStateAction<INoteResponseDTO | null>>
+}
 
-    useEffect(() => {
-        fetch('http://localhost:3000/notes').then((res) => {
-            res.json().then(data => setNotes(data))
-        })
-    }, [])
-
-
+export const Table:FC<IProps> = ({notes, setIsOpenEditModal, setCurrentNote}) => {
     const tableContainerRef = useRef<HTMLDivElement>(null);
+
+    const handleEditIconClick = (row: any) => {
+        setCurrentNote(row.original)
+        setIsOpenEditModal(true)
+    }
 
     const columns = useMemo(() => headers, [headers])
 
 
     const data = useMemo(() => notes, [notes])
 
-
-    console.log(data);
 
     // @ts-ignore
     const table = useMantineReactTable({
@@ -32,22 +34,14 @@ export const Table = () => {
         enablePagination: false,
         enableStickyHeader: true,
         enableEditing: true,
-        renderEditRowModalContent: ({table, row, internalEditComponents}) => {
-            return (<div>
-            {internalEditComponents}
-            </div>)
-        },
-        mantineTableBodyRowProps: ({row}) => ({
-            onClick: (event) => {
-                console.info(event, row.id);
-            },
-            sx: {
-                cursor: 'pointer'
-            },
-        }),
+        renderRowActions: ({ row }) => (
+            <ActionIcon onClick={() => handleEditIconClick(row)}>
+                <IconEdit size={16} />
+            </ActionIcon>
+        ),
         mantineTableContainerProps: {
-            ref: tableContainerRef, //get access to the table container element
-            sx: {maxHeight: "80vh"}, //give the table a max height
+            ref: tableContainerRef,
+            sx: {maxHeight: "80vh"},
         },
     });
 

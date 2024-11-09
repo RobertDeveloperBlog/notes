@@ -1,17 +1,23 @@
 import {Modal as MantineModal} from "@mantine/core";
-import {Dispatch, FC, SetStateAction} from "react";
+import {FC, useState} from "react";
 import {IForm, ModalContent} from "./components/ModalContent/ModalContent";
 import './styles.css'
 import {ModalFooter} from "./components/ModalFooter/ModalFooter";
 
 interface IProps {
-    formState: IForm
-    setFormState:Dispatch<SetStateAction<IForm>>
     isOpen: boolean;
-    handleClose: () => void
+    handleClose: () => void;
+    getAllNotes: () => void
 }
 
-export const Modal: FC<IProps> = ({isOpen, handleClose, formState, setFormState}) => {
+export const Modal: FC<IProps> = ({isOpen, handleClose, getAllNotes}) => {
+    const [formState, setFormState] = useState<IForm>({
+        name: '',
+        comment: '',
+        priority: '',
+        deadline: new Date()
+    });
+
     return (
         <MantineModal
             opened={isOpen}
@@ -23,7 +29,7 @@ export const Modal: FC<IProps> = ({isOpen, handleClose, formState, setFormState}
             blur: 1,
         }}>
             <ModalContent formState={formState} setFormState={setFormState}/>
-            <ModalFooter formState={formState} setFormState={setFormState}/>
+            <ModalFooter formState={formState}  handleClose={handleClose} getAllNotes={getAllNotes}/>
         </MantineModal>
     )
 };

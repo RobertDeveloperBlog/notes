@@ -1,19 +1,21 @@
 import './styles.css'
-import {Dispatch, FC, SetStateAction} from "react";
+import {FC,} from "react";
 import {Button} from '@mantine/core';
 import {IForm} from "../ModalContent/ModalContent";
 
 
 interface IProps {
     formState: IForm
-    setFormState: Dispatch<SetStateAction<IForm>>
+    handleClose: () => void
+    getAllNotes: () => void
 }
 
-export const ModalFooter: FC<IProps> = ({formState, setFormState}) => {
+export const ModalFooter: FC<IProps> = ({formState,handleClose, getAllNotes}) => {
 
-    const {date, name, comment, priority, deadline} = formState
+    const { name, comment, priority, deadline} = formState
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (event: any) => {
+        event.preventDefault()
         await fetch('http://localhost:3000/notes', {
             method: 'POST',
             headers: {
@@ -21,7 +23,6 @@ export const ModalFooter: FC<IProps> = ({formState, setFormState}) => {
             },
             body: JSON.stringify({
                 note: {
-                    date,
                     name,
                     comment,
                     priority,
@@ -29,6 +30,9 @@ export const ModalFooter: FC<IProps> = ({formState, setFormState}) => {
                 }
             })
         })
+        await getAllNotes();
+
+        handleClose()
     }
 
     return (

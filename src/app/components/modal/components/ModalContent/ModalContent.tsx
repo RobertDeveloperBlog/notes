@@ -1,15 +1,15 @@
-import {Button, Select, Textarea, TextInput} from "@mantine/core";
+import {Select, Textarea, TextInput} from "@mantine/core";
 import './styles.css'
-import {Dispatch, FC, SetStateAction, useState} from "react";
-import { DateInput } from "@mantine/dates";
+import {Dispatch, FC, SetStateAction} from "react";
+import {DateInput} from "@mantine/dates";
 
 export interface IForm {
     name: string
-    date: Date;
     comment: string
     priority: string
     deadline: Date
-    id?: string;
+    id?: number;
+    created_at?: Date
 }
 
 interface IProps {
@@ -60,7 +60,7 @@ export const ModalContent:FC<IProps> = ({formState, setFormState}) => {
                 label="Приоритет"
                 placeholder="Выберите приоритет"
                 data={[
-                    { value: 'HIGH ', label: 'Высокий' },
+                    { value: 'HIGH', label: 'Высокий' },
                     { value: 'MEDIUM', label: 'Средний' },
                     { value: 'LOW', label: 'Низкий' },
                 ]}
