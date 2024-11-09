@@ -17,17 +17,14 @@ export const Table:FC<IProps> = ({notes, setIsOpenEditModal, setCurrentNote}) =>
     const tableContainerRef = useRef<HTMLDivElement>(null);
 
     const handleEditIconClick = (row: any) => {
-        setCurrentNote(row.original)
+            setCurrentNote(row.original)
         setIsOpenEditModal(true)
     }
 
     const columns = useMemo(() => headers, [headers])
-
-
     const data = useMemo(() => notes, [notes])
 
 
-    // @ts-ignore
     const table = useMantineReactTable({
         columns,
         data,

@@ -1,4 +1,4 @@
-import {Modal as MantineModal} from "@mantine/core";
+import {Modal} from "@mantine/core";
 import {FC, useState} from "react";
 import {IForm, ModalContent} from "./components/ModalContent/ModalContent";
 import './styles.css'
@@ -10,7 +10,7 @@ interface IProps {
     getAllNotes: () => void
 }
 
-export const Modal: FC<IProps> = ({isOpen, handleClose, getAllNotes}) => {
+export const CreateNoteModal: FC<IProps> = ({isOpen, handleClose, getAllNotes}) => {
     const [formState, setFormState] = useState<IForm>({
         name: '',
         comment: '',
@@ -19,7 +19,7 @@ export const Modal: FC<IProps> = ({isOpen, handleClose, getAllNotes}) => {
     });
 
     return (
-        <MantineModal
+        <Modal
             opened={isOpen}
             onClose={handleClose}
             title='Добавление заметки'
@@ -30,6 +30,6 @@ export const Modal: FC<IProps> = ({isOpen, handleClose, getAllNotes}) => {
         }}>
             <ModalContent formState={formState} setFormState={setFormState}/>
             <ModalFooter formState={formState}  handleClose={handleClose} getAllNotes={getAllNotes}/>
-        </MantineModal>
+        </Modal>
     )
 };

@@ -1,13 +1,13 @@
 import './style.css'
 import {Table} from "../table/Table";
 import {Header} from "../header/header";
-import {Modal} from "../modal/Modal";
 import {useEffect, useState} from "react";
 import {EditNoteModal, INoteResponseDTO} from "../modal/editNoteModal/EditNoteModal";
+import { CreateNoteModal } from '../modal/CreateNoteModal';
 
 export const Card = () => {
     const [notes, setNotes] = useState<INoteResponseDTO[]>([])
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpenCreateModal, setIsOpenCreateModal] = useState(false);
     const [isOpenEditModal, setIsOpenEditModal] = useState(false);
 
     const [currentNote, setCurrentNote] = useState<INoteResponseDTO | null>(null)
@@ -18,7 +18,6 @@ export const Card = () => {
         })
     }
 
-
     useEffect(() => {
         getAllNotes()
     }, [])
@@ -26,7 +25,7 @@ export const Card = () => {
 
 
     const handleClose = () => {
-        setIsOpen(false)
+        setIsOpenCreateModal(false)
     }
 
     const handleEditModalClose = () => {
@@ -36,14 +35,16 @@ export const Card = () => {
 
     return (
         <div className='card'>
-            <Header isOpen={isOpen} setIsOpen={setIsOpen}/>
+            <Header
+                setIsOpen={setIsOpenCreateModal}
+            />
             <Table
                 notes={notes}
                 setIsOpenEditModal={setIsOpenEditModal}
                 setCurrentNote={setCurrentNote}/>
-            <Modal
+            <CreateNoteModal
                 getAllNotes={getAllNotes}
-                isOpen={isOpen}
+                isOpen={isOpenCreateModal}
                 handleClose={handleClose}
             />
             <EditNoteModal

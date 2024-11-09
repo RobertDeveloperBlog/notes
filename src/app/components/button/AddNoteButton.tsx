@@ -4,14 +4,13 @@ import './styles.css'
 
 
 interface IProps {
-    isOpen: boolean
     setIsOpen: Dispatch<SetStateAction<boolean>>
 }
 
-export const AddNoteButton: FC<IProps> = ({isOpen, setIsOpen}) => {
+export const AddNoteButton: FC<IProps> = ({setIsOpen}) => {
 
     const handleClick = () => {
-        setIsOpen(!isOpen)
+        setIsOpen(true)
     }
 
     return (
